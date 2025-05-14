@@ -1,0 +1,93 @@
+<!-- frontend/src/app/farmer-dashboard/farmer-dashboard.component.html -->
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Farmer Dashboard</h1>
+        <button class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+    <p>Welcome, {{farmerDetails.name}} ({{farmerDetails.city}})</p>
+
+    <div class="section">
+        <h2>Add Your Products</h2>
+        <form (ngSubmit)="addItem()" #itemForm="ngForm">
+            <div class="form-group">
+                <label for="item-name">Item Name</label>
+                <input type="text" class="form-control" id="item-name" 
+                       [(ngModel)]="newItem.name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="item-price">Price per Kg</label>
+                <input type="number" class="form-control" id="item-price" 
+                       [(ngModel)]="newItem.price" name="price" required min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="item-quantity">Total kg's</label>
+                <input type="number" class="form-control" id="item-quantity" 
+                       [(ngModel)]="newItem.quantity" name="quantity" required min="0">
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="!itemForm.form.valid">Add Item</button>
+        </form>
+    </div>
+
+    <div class="section">
+        <h2>Product List</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Price (₹/Kg)</th>
+                        <th>Total kg's</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!items || items.length === 0">
+                        <td colspan="4" class="text-center">No items available.</td>
+                    </tr>
+                    <tr *ngFor="let item of items">
+                        <td>{{item.name}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary me-2" (click)="editItem(item)">Edit</button>
+                            <button class="btn btn-sm btn-danger" (click)="deleteItem(item._id)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    <div class="section">
+        <h2>Purchase History</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>City</th>
+                        <th>Mobile</th>
+                        <th>Item</th>
+                        <th>Quantity (Kg)</th>
+                        <th>Purchase Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!purchases || purchases.length === 0">
+                        <td colspan="6" class="text-center">No purchases yet.</td>
+                    </tr>
+                    <tr *ngFor="let purchase of purchases">
+                        <td>{{purchase.customerName}}</td>
+                        <td>{{purchase.customerCity}}</td>
+                        <td>{{purchase.customerMobile}}</td>
+                        <td>{{purchase.itemName}}</td>
+                        <td>{{purchase.quantity}}</td>
+                        <td>{{formatDate(purchase.purchaseDate)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

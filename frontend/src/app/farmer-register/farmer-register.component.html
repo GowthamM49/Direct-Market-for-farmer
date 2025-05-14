@@ -1,0 +1,41 @@
+<!-- frontend/src/app/farmer-register/farmer-register.component.html -->
+<div class="container">
+    <h1 class="text-center">Farmer Registration</h1>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter your name">
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password">
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Mobile Number</label>
+            <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="Enter your mobile number">
+        </div>
+        
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" formControlName="city" placeholder="Enter your city">
+        </div>
+        
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+    </form>
+    
+    <div class="mt-20 text-center">
+        <p>Already Registered? <a routerLink="/farmer/login">Login</a></p>
+    </div>
+    
+    <div *ngIf="message" class="alert" [ngClass]="{'alert-danger': isError, 'alert-success': !isError}">
+        {{message}}
+    </div>
+</div>

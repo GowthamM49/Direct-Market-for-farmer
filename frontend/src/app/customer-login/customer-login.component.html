@@ -1,0 +1,26 @@
+<!-- frontend/src/app/customer-login/customer-login.component.html -->
+<div class="container">
+    <h1 class="text-center">Customer Login</h1>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password">
+        </div>
+        
+        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+    </form>
+    
+    <div class="mt-20 text-center">
+        <p>New customer? <a routerLink="/customer/register">Register Here</a></p>
+    </div>
+    
+    <div *ngIf="message" class="alert" [ngClass]="{'alert-danger': isError, 'alert-success': !isError}">
+        {{message}}
+    </div>
+</div>
